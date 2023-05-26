@@ -1,11 +1,13 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     TodoApp.Repo.insert!(%TodoApp.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias TodoApp.Repo
+alias TodoApp.Tasks.Task
+
+tasks =
+  ~w(
+    買い物をする
+    本を読む
+    部屋の掃除をする
+  )
+
+Enum.each(tasks, fn task ->
+  Repo.insert(%Task{title: task, date: Date.utc_today()})
+end)
